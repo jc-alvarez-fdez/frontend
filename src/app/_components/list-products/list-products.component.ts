@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Product } from '../../_interfaces/product.interface';
@@ -22,6 +22,7 @@ import { ProgressComponent } from '../../_shared/progress/progress.component';
 })
 export class ListProductsComponent implements OnInit {
 
+
   public listProducts: Product [] = [];
   loading: boolean = false;
   constructor (
@@ -34,9 +35,20 @@ export class ListProductsComponent implements OnInit {
   }
 
   getListProductos() {
-    this._productoService.getListProductos().subscribe((data) => {
-      this.listProducts = data;
+
+    this.loading = true;
+    this._productoService.getListProductos().subscribe((data: Product[]) => {
+    this.listProducts = data;
+    this.loading = false;
     })
   }
+
+  deleteProduct(id: NumberFormatStyle) {
+    this.loading = true;
+    this._productoService.deleteProduct(id).subscribe(data => {
+      console.log(data);
+      this.getListProductos();
+    });
+    }
 
 }
