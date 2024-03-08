@@ -19,7 +19,7 @@ export class ProductoService {
   }
 
 
-  getListProducts(): Observable<Product[]> {
+  getListProductos(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
 }
