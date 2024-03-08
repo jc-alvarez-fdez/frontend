@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { Product } from '../../_interfaces/product.interface';
 import { ProductoService } from '../../_services/producto.service';
@@ -27,7 +28,8 @@ export class ListProductsComponent implements OnInit {
   loading: boolean = false;
   constructor (
     private http: HttpClient,
-    private _productoService: ProductoService) {}
+    private _productoService: ProductoService,
+    private toastr: ToastrService) {}
 
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class ListProductsComponent implements OnInit {
     this._productoService.deleteProduct(id).subscribe(data => {
       console.log(data);
       this.getListProductos();
+      this.toastr.warning('El producto se ha eliminado de la base de datos', 'Producto eliminado')
     });
     }
 
