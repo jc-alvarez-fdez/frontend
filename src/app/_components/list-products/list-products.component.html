@@ -1,4 +1,7 @@
-<div class="container">
+<app-progress *ngIf="loading" />
+
+
+<div *ngIf="!loading" class="container">
   <header>
     <h4>Listado de productos</h4>
     <button type="button" class="btn btn-primary" routerLink="/add">Añadir producto</button>
@@ -17,7 +20,7 @@
       <tr *ngFor="let item of listProducts" class="table-active">
         <td>{{item.name}}</td>
         <td>{{item.description}}</td>
-        <td>{{item.price}}</td>
+        <td>{{item.price | currency}}</td>
         <td>{{item.stock}}</td>
         <td>
           <button type="button" class="btn btn-secondary btn-sm" routerLink="edit/{{item.id}}">Editar</button>

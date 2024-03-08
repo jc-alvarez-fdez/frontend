@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { NavbarComponent } from './_components/navbar/navbar.component';
 import { ListProductsComponent } from './_components/list-products/list-products.component';
-import { ProductoService } from './-services/producto.service';
+import { ProductoService } from './_services/producto.service';
 
 @Component({
   selector: 'app-root',
