@@ -11,13 +11,17 @@ import { provideToastr } from 'ngx-toastr';
 import { Product } from './_interfaces/product.interface';
 
 
-
 export const appConfig: ApplicationConfig = {
 
   providers: [
-    provideRouter(routes), 
+    provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),
-    provideToastr()
+    provideToastr({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ]
 };
+
