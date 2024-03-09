@@ -31,4 +31,9 @@ export class ProductoService {
   saveProduct(product: Product): Observable<void> {
     return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, product);
   }
+
+  updateProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.myAppUrl}${this.myApiUrl}${id}`)
+  }
+
 }
