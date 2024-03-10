@@ -18,7 +18,7 @@ export class ProductoService {
     this.myApiUrl = 'api/productos/';
   }
 
-
+  // Endpoints
   getListProductos(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
@@ -32,8 +32,12 @@ export class ProductoService {
     return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, product);
   }
 
-  updateProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.myAppUrl}${this.myApiUrl}${id}`)
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
+
+  updateProduct(id: number, product: Product): Observable<void> {
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, product);
   }
 
 }

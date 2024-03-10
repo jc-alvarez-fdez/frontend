@@ -51,33 +51,47 @@ export class AddEditProductComponent implements OnInit{
     if(this.id !=0) {
       // es editar
       this.operacion = 'Editar ';
-      this.updateProduct(this.id);
-
+      this.getProduct(this.id);
     }
-
   }
 
   addProduct() {
-
-    //console.log(this.form.get("name")?.value);
-
     const product: Product = {
       name: this.form.value.name,
       description: this.form.value.description,
       price: this.form.value.price,
       stock: this.form.value.stock,
     }
+
     this.loading = true;
-    this._productoService.saveProduct(product).subscribe(() => {
+
+    if (this.id !==0) { // es editar
+      product.id = this.id;
+      this._productoService.updateProduct(this.id, product).subscribe(() => {
+        this.loading = false;
+        this.toastr.info(`El producto ${product.name} se ha actualizado`, 'Actualizar producto');
       this.loading = false;
-      this.toastr.success(`El producto ${product.name} se ha añadido`, 'Nuevo producto');
       this.router.navigate(['/']);
-    })
+        })
+
+    } else { // es añadir
+      this._productoService.saveProduct(product).subscribe(() => {
+        this.toastr.success(`El producto ${product.name} se ha añadido`, 'Nuevo producto');
+      this.loading = false;
+      this.router.navigate(['/']);
+      })
+    }
+
+
+
+
+
+
   }
 
-  updateProduct(id:number) {
+  getProduct(id:number) {
     this.loading = true;
-    this._productoService.updateProduct(id).subscribe((data: Product) => {
+    this._productoService.getProduct(id).subscribe((data: Product) => {
       console.log(data);
       this.loading = false;
       this.form.setValue({
